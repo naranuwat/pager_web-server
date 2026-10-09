@@ -1,7 +1,7 @@
-import * as api from './api.js';
+//ลบคำสั่ง import * as api from './api.js';    
 document.addEventListener('DOMContentLoaded', async () => {
 
-    await api.startMQTT();
+    await startMQTT();
     
     // ดึง DOM Elements จากหน้า HTML
     const sendModeSelect = document.getElementById('sendModeSelect');
@@ -29,9 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ซ่อน Dropdown ตั้งแต่เริ่มต้น
     CheckBoxDropdown.classList.add('hide');
 
-    // ====================================================
-    // [ส่วนที่เพิ่มใหม่: ฟังก์ชันควบคุมและเปิด-ปิด Custom Select Dropdown ให้ทำงานทดแทน <select>]
-    // ====================================================
     function closeAllDropdowns() {
         document.querySelectorAll('.custom-select-menu, .checkbox-dropdown-menu').forEach(m => m.classList.remove('show'));
         document.querySelectorAll('.custom-select-container, .checkboxDropdown').forEach(b => b.classList.remove('active'));
@@ -79,9 +76,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // เรียกใช้ฟังก์ชันเริ่มต้นสร้าง Custom Select สองตัว
     initCustomSelect('sendModeDropdown', 'sendModeToggle', 'sendModeMenu', 'sendModeLabel', 'sendModeSelect', 'sendModeChevron');
     initCustomSelect('targetIdDropdown', 'targetIdToggle', 'targetIdMenu', 'targetIdLabel', 'targetIdSelect', 'targetIdChevron');
-    // ====================================================
-    // [จบส่วนที่เพิ่มใหม่]
-    // ====================================================
 
     // ----------------------------------------------------
     // 1. ระบบนับตัวอักษร Real-time (สูงสุด 80 ตัวอักษร)
@@ -112,11 +106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // [ส่วนที่เพิ่มใหม่: ป้องกันไม่ให้การคลิกภายในเมนู Checkbox Dropdown ส่งผลให้เมนูปิดลงเมื่อติ๊กเลือก]
     checkboxDropdownMenu.addEventListener('click', (e) => {
         e.stopPropagation();
     });
-    // [จบส่วนที่เพิ่มใหม่]
 
     // คลิกพื้นที่อื่นนอก Dropdown เพื่อปิดเมนู
     document.addEventListener('click', closeAllDropdowns);
@@ -230,7 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         setLoadingState(true);
-        const result = api.sendMessage(payload);
+        const result = sendMessage(payload);
         console.log(result);
         setLoadingState(!result);
         resetFormState();
@@ -249,14 +241,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         charCount.textContent = `0 / ${MAX_CHARS} ตัวอักษร`;
         charCount.classList.remove('text-danger', 'fw-bold');
 
-        // [ส่วนที่เพิ่มใหม่: รีเซ็ตสถานะหน้าตา Custom Select เป็นค่าเริ่มต้น]
         resetCustomSelect('sendModeMenu', 'sendModeLabel', 'sendModeSelect', '1_TO_1', 'ส่งเฉพาะรายบุคคล (1:1)');
         resetCustomSelect('targetIdMenu', 'targetIdLabel', 'targetIdSelect', '001', 'เครื่องที่ 1 (PAG-01)');
 
         sendModeSelect.dispatchEvent(new Event('change'));
     }
 
-    // [ส่วนที่เพิ่มใหม่: ฟังก์ชันช่วยเคลียร์ค่าตัวเลือก Custom Select]
     function resetCustomSelect(menuId, labelId, hiddenInputId, defaultValue, defaultLabel) {
         const menu = document.getElementById(menuId);
         const label = document.getElementById(labelId);
