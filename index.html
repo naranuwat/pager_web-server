@@ -45,7 +45,6 @@
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">เลือกผู้รับ:</label>
                         
-                        <!-- [ส่วนที่เพิ่มใหม่: เปลี่ยนจาก <select> เป็น Custom Dropdown เพื่อให้หน้าตาเหมือน Checkbox Dropdown] -->
                         <div class="custom-select-container" id="sendModeDropdown">
                             <button type="button" class="custom-select-trigger d-flex justify-content-between align-items-center" id="sendModeToggle">
                                 <span id="sendModeLabel">ส่งเฉพาะรายบุคคล (1:1)</span>
@@ -58,7 +57,6 @@
                             </div>
                             <input type="hidden" id="sendModeSelect" name="send_mode" value="1_TO_1" required>
                         </div>
-                        <!-- [จบส่วนที่เพิ่มใหม่] -->
 
                     </div>
 
@@ -69,7 +67,6 @@
                         <!-- 3.1 Dropdown เลือกเครื่องเดียว (1:1) -->
                         <div id="selectbox" class="selectbox">
                             
-                            <!-- [ส่วนที่เพิ่มใหม่: เปลี่ยนจาก <select> เป็น Custom Dropdown เพื่อให้สไตล์กล่องลอยขอบมนเหมือนกัน] -->
                             <div class="custom-select-container" id="targetIdDropdown">
                                 <button type="button" class="custom-select-trigger d-flex justify-content-between align-items-center" id="targetIdToggle">
                                     <span id="targetIdLabel">เครื่องที่ 1 (PAG-01)</span>
@@ -83,7 +80,6 @@
                                 </div>
                                 <input type="hidden" id="targetIdSelect" name="target_id" value="001">
                             </div>
-                            <!-- [จบส่วนที่เพิ่มใหม่] -->
 
                         </div>
 
@@ -132,8 +128,11 @@
         </div>
 
     </div>
-
-    <!-- ไฟล์ JavaScript -->
-    <script type="module" src="script.js"></script>
+<!---------------------------------------- ส่วนที่เพิ่มใหม่ ---------------------------------------->
+    <!-- ไฟล์ JavaScript: โหลด MQTT ตรงๆ แทนการโหลดผ่าน JS -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+<!---------------------------------------- จบส่วนที่เพิ่มใหม่ ---------------------------------------->
 </body>
 </html>
