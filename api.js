@@ -1,17 +1,9 @@
-function loadMQTT() {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/mqtt/dist/mqtt.min.js';
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error('โหลด MQTT.js ไม่สำเร็จ'));
-        document.head.appendChild(script);
-    });
-}
+//ลบฟังก์ชัน loadMQTT() เนื่องจากเปลี่ยนไปโหลดผ่านไฟล์ HTML แล้ว
 
 let client;
 
-export async function startMQTT() {
-    await loadMQTT()
+//ลบคำสั่ง export ออกจากหน้าคำว่า async function startMQTT() และ function sendMessage(data)
+async function startMQTT() {
     const MQTT_BROKER = 'wss://s1ad7df7.ala.asia-southeast1.emqxsl.com:8084/mqtt';
     client = mqtt.connect(MQTT_BROKER, {
         username: 'Pager_Project',
@@ -28,7 +20,7 @@ export async function startMQTT() {
     });
 }
 
-export function sendMessage(data){
+function sendMessage(data){
     client.publish(
             'Pager/webmsg/',
             (JSON.stringify(data))
